@@ -66,6 +66,14 @@ library(tidyverse)
 library(dsbox) 
 ```
 
+Note: dsbox is not yet on CRAN. For now, you can install it from GitHub with the following commands on the terminal
+
+```{r}
+install.packages("devtools")
+devtools::install_github("rstudio-education/dsbox")
+
+```
+
 ## Data
 
 The datasets we'll use are called `dennys` and `laquinta` from the **dsbox** package.

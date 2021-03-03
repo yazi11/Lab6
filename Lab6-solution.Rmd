@@ -12,16 +12,22 @@ Student ID:
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-Load the needed packages.
+Load the needed packages. Note: dsbox is not yet on CRAN. For now, you need to install it before you load the library.
 
 ```{r message = FALSE}
- 
+
+```
+
+Load the libraries here.
+
+```{r message = FALSE}
+
 ```
 
 To help with our analysis we will also use a dataset on US states, which is located in your repository's `data` folder.
 
 ```{r}
-
+states <- read_csv("data/states.csv")
 ```
 
 # Exercises
@@ -31,7 +37,7 @@ To help with our analysis we will also use a dataset on US states, which is loca
     What are the variables?
     
 ```{r}
-
+nrow(states)
 ```
 
 2.  What are the dimensions of the La Quinta's dataset?
