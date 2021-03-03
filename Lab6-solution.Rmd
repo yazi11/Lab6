@@ -5,7 +5,7 @@ author: Musab Isah
 output: github_document
 ---
 
-Student ID: 
+Student ID: 2200000456
 
 
 ```{r include = FALSE}
@@ -15,18 +15,20 @@ knitr::opts_chunk$set(eval = FALSE)
 Load the needed packages. Note: dsbox is not yet on CRAN. For now, you need to install it before you load the library.
 
 ```{r message = FALSE}
-
+install.packages("devtools")
+devtools::install_github("rstudio-education/dsbox")
 ```
 
 Load the libraries here.
 
 ```{r message = FALSE}
-
+library(tidyverse)
+library(dsbox)
 ```
 
 To help with our analysis we will also use a dataset on US states, which is located in your repository's `data` folder.
 
-```{r}
+```{r message = FALSE}
 states <- read_csv("data/states.csv")
 ```
 
@@ -36,9 +38,12 @@ states <- read_csv("data/states.csv")
     (Hint: Use inline R code and functions like `nrow` and `ncol` to compose your answer.) What does each row in the dataset represent?
     What are the variables?
     
-```{r}
-nrow(states)
+```{r message = FALSE}
+dim(dennys)
+head(dennys)
 ```
+The `dennys` dataset has 1,643 rows and 6 columns. Each row represents an address of a denny's restaurant.
+
 
 2.  What are the dimensions of the La Quinta's dataset?
     What does each row in the dataset represent?
@@ -46,8 +51,10 @@ nrow(states)
     
     
 ```{r}
-
+dim(laquinta)
+head(laquinta)
 ```
+This dataset has 909 rows and 6 columns. Each row represents an address of laquinta's hotel.
 
 Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
