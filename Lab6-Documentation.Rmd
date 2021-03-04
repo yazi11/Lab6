@@ -15,7 +15,7 @@ knitr::include_graphics("img/mitch-hedgeberg-lqd.jpg")
 ```
 
 Have you ever taken a road trip in the US and thought to yourself "I wonder what La Quinta means".
-Well, the late comedian [Mitch Hedberg](https://en.wikipedia.org/wiki/Mitch_Hedberg) thinks it's Spanish for *next to Denny's*.
+Well, the late comedian Mitch Hedberg (https://en.wikipedia.org/wiki/Mitch_Hedberg) thinks it's Spanish for *next to Denny's*.
 
 If you're not familiar with these two establishments, [Denny's](https://www.dennys.com/) is a casual diner chain that is open 24 hours and [La Quinta Inn and Suites](http://www.lq.com/) is a hotel chain.
 
@@ -23,7 +23,7 @@ These two establishments tend to be clustered together, or at least this observa
 In this lab we explore the validity of this joke and along the way learn some more data wrangling and tips for visualizing spatial data.
 
 The inspiration for this lab comes from a blog post by John Reiser on his *new jersey geographer* blog.
-You can read that analysis [here](http://njgeo.org/2014/01/30/mitch-hedberg-and-gis/).
+You can read that analysis \textcolor{blue}{http://njgeo.org/2014/01/30/mitch-hedberg-and-gis/}.
 Reiser's blog post focuses on scraping data from Denny's and La Quinta Inn and Suites websites using Python.
 In this lab we focus on visualization and analysis of these data.
 However note that the data scraping was also done in R, and we we will discuss web scraping using R later in the course.
@@ -77,12 +77,12 @@ devtools::install_github("rstudio-education/dsbox")
 ## Data
 
 The datasets we'll use are called `dennys` and `laquinta` from the **dsbox** package.
-Note that these data were scraped from [here](https://locations.dennys.com/) and [here](https://www.lq.com/en/findandbook/hotel-listings.html), respectively.
+Note that these data were scraped from \textcolor{blue}{https://locations.dennys.com/} and \textcolor{blue}{https://www.lq.com/en/findandbook/hotel-listings.html}, respectively.
 
 The datasets we'll use are called `dennys` and `laquinta` from the **dsbox** package.
 Since the datasets are distributed with the package, we don't need to load them separately; they become available to us when we load the package.
 You can find out more about the datasets by inspecting their documentation, which you can access by running `?dennys` and `?laquinta` in the Console or using the Help menu in RStudio to search for `dennys` or `laquinta`.
-You can also find this information [here](https://rstudio-education.github.io/dsbox/reference/dennys.html) and [here](https://rstudio-education.github.io/dsbox/reference/laquinta.html).
+You can also find this information \textcolor{blue}{https://rstudio-education.github.io/dsbox/reference/dennys.html} and \textcolor{blue}{https://rstudio-education.github.io/dsbox/reference/laquinta.html}.
 
 To help with our analysis we will also use a dataset on US states, which is located in your repository's `data` folder.
 
@@ -107,43 +107,35 @@ Knit, *commit, and push your changes to GitHub with an appropriate commit messag
 
 We would like to limit our analysis to Denny's and La Quinta locations in the United States.
 
-3.  Find the Denny's locations that are outside the US, if any. To do so, filter the Denny's locations for observations where `state` is not in `states$abbreviation`. The code for this is given below. Note that the `%in%` operator matches the states listed in the `state` variable to those listed in `states$abbreviation`. The `!` operator means **not**. Are there any Denny's locations outside the US?
 
-Filter for `state`s that are not in `states$abbreviation
-
-```{r}
-dn %>%
-  filter(!(state %in% states$abbreviation))
-```
-
-4.  Add a country variable to the Denny's dataset and set all observations equal to `"United States"`. Remember, you can use the `mutate` function for adding a variable. Make sure to save the result of this as `dn` again so that the stored data frame contains the new variable going forward.
+3.  Add a country variable to the Denny's and La Quinta's datasets and set all observations equal to `"United States"`. Remember, you can use the `mutate` function for adding a variable. Make sure to save the result of this as `dn` and lq, respectively, so that the stored data frame contains the new variable going forward.
 
 We don't need to tell R how many times to repeat the character string "United States" to fill in the data for all observations, R takes care of that automatically.
 
 ```{r}
-dn %>%
+dn <- dennys %>%
   mutate(country = "United States")
 ```
 
-Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
-
-5. Going forward we will work with the data from the United States only.
-All Denny's locations are in the United States, so we don't need to worry about them.
-However we do need to filter the La Quinta dataset for locations in United States.
+Add the code below for La Quinta's dataset
 
 ```{r}
-lq <- lq %>%
-  filter(country == "United States")
+
 ```
 
-6.  Which states have the most and fewest Denny's locations? What about La Quinta? Is this surprising? Why or why not?
 
-Next, let's calculate which states have the most Denny's locations *per thousand square miles*.
-This requires *joinining* information from the frequency tables you created in Exercise 8 with information from the `states` data frame.
+Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
+
+4.  Which states have the most and fewest Denny's locations? What about La Quinta? Is this surprising? Why or why not?
+
+5. Next, let's calculate which states have the most Denny's and La Quinta's locations *per thousand square miles*.
+This requires *joinining* information from the frequency tables you created in Exercise 3 with information from the `states` data frame.
 
 First, we count how many observations are in each state, which will give us a data frame with two variables: `state` and `n`.
+
 Then, we join this data frame with the `states` data frame.
 However note that the variables in the `states` data frame that has the two-letter abbreviations is called `abbreviation`.
+
 So when we're joining the two data frames we specify that the `state` variable from the Denny's data should be matched `by` the `abbreviation` variable from the `states` data:
 
 ```{r}
@@ -152,14 +144,9 @@ dn %>%
   inner_join(states, by = c("state" = "abbreviation"))
 ```
 
-Before you move on the the next question, run the code above and take a look at the output.
-In the next exercise you will need to build on this pipe.
+So to answer the question - Denny's and La Quinta's locations *per thousand square miles*. We put the two datasets together into a single data frame.
 
-7. Which states have the most Denny's locations per thousand square miles? What about La Quinta?
-
-Next, we put the two datasets together into a single data frame.
-However before we do so, we need to add an identifier variable.
-We'll call this `establishment` and set the value to `"Denny's"` and `"La Quinta"` for the `dn` and `lq` data frames, respectively.
+However before we do so, we need to add an identifier variable. We'll call this `establishment` and set the value to `"Denny's"` and `"La Quinta"` for the `dn` and `lq` data frames, respectively.
 
 ```{r}
 dn <- dn %>%
