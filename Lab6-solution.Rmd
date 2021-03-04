@@ -2,21 +2,21 @@
 title: "Lab 6 - La Quinta is Spanish for next to Denny's, Pt. 1"
 subtitle: "Visualizing spatial data"
 author: Musab Isah
-output: html_document
+output: pdf_document
 ---
 
 Student ID: 
 
 
 ```{r include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$set(eval = TRUE)
 ```
 
-Load the needed packages. Note: dsbox is not yet on CRAN. For now, you need to install it before you load the library.
+Load the needed packages. Note: dsbox is not yet on CRAN. For now, you need to install it before you load the library. Uncomment, by deleting # from, the two lines of code below.
 
 ```{r message = FALSE}
-install.packages("devtools")
-devtools::install_github("rstudio-education/dsbox")
+#install.packages("devtools")
+#devtools::install_github("rstudio-education/dsbox")
 ```
 
 Load the libraries here.
@@ -42,7 +42,7 @@ states <- read_csv("data/states.csv")
 dim(dennys)
 #head(dennys)
 ```
-\textcolor{red}{The `dennys` dataset has 1,643 rows and 6 columns. Each row represents an address of a denny's restaurant.}
+\textcolor{red}{The `dennys` dataset has 1,643 rows and 6 columns. Each row represents location information about a denny's restaurant.}
 
 
 2.  What are the dimensions of the La Quinta's dataset? 
@@ -54,18 +54,22 @@ dim(dennys)
 dim(laquinta)
 #head(laquinta)
 ```
-\textcolor{red}{This dataset has 909 rows and 6 columns. Each row represents an address of laquinta's hotel.}
+\textcolor{red}{This dataset has 909 rows and 6 columns. Each row represents location information about laquinta's hotel.}
 
 Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
 
 3.  Add a country variable to the Denny's and Laquinta's datasets and set all observations equal to `"United States"`. Remember, you can use the `mutate` function for adding a variable. Make sure to save the result of this as `dn` and lq, respectively, so that the stored data frame contains the new variable going forward.
 
+For Denny's
+
 ```{r}
 dn <- dennys %>%
     mutate(country = "United States")
 ```
 
+
+For La Quinta
 ```{r}
 lq <- laquinta %>%
     mutate(country = "United States")
@@ -119,7 +123,7 @@ lq %>%
 
 5. Which states have the most Denny's locations per thousand square miles? What about La Quinta?
 
-\textcolor{red}{We are interested in the number of locations per state, which could find in Denny's or La Quinta's datasets, and the area of each state, which is only available in the `states` dataset, which we imported earlier from the Data folder.}
+\textcolor{red}{We are interested in the number of locations per state, which we could find in Denny's or La Quinta's datasets, and the area of each state, which is only available in the `states` dataset, which we imported earlier from the Data folder using the code `states <- read_csv("data/states.csv")`.}
 
 Joining Denny's and states
 
@@ -137,16 +141,20 @@ lq %>%
   inner_join(states, by = c("state" = "abbreviation"))
 ```
 
-Since the two data frames have the same columns, we can easily bind them with the `bind_rows` function:
+We need to add an identifier variable which we'll call `establishment` and set the value to `"Denny's"` and `"La Quinta"` for the `dn` and `lq` data frames, respectively.
 
 ```{r}
 dn <- dn %>%
   mutate(establishment = "Denny's")
+```
+
+
+``` {r}
 lq <- lq %>%
   mutate(establishment = "La Quinta")
 ```
 
-Since the two data frames have the same columns, we can easily bind them with the `bind_rows` function:
+Since the two data frames (`dn` and `lq`) have the same columns, we can easily bind them with the `bind_rows` function:
 
 ```{r}
 dn_lq <- bind_rows(dn, lq)
@@ -160,5 +168,6 @@ ggplot(dn_lq, mapping = aes(x = longitude, y = latitude, color = establishment))
     geom_point()
 ```
 
+\textcolor{red}{The graph figure shows that indeed there are many La Quinta hotels that located next to Denny's restaurants. We could also see from the figure that there is the presence of the two chains across the US as the figure almost depict the exact map of the country. The figure also indicates the presence of these chains in Alaska (top-left), Hawaii (bottom-left), and some cities in Central America(bottom-right)}
 
 Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
