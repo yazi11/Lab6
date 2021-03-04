@@ -45,7 +45,7 @@ head(dennys)
 The `dennys` dataset has 1,643 rows and 6 columns. Each row represents an address of a denny's restaurant.
 
 
-2.  What are the dimensions of the La Quinta's dataset?
+2.  What are the dimensions of the La Quinta's dataset? 
     What does each row in the dataset represent?
     What are the variables?
     
@@ -63,14 +63,15 @@ We would like to limit our analysis to Denny's and La Quinta locations in the Un
 3. Filter for `state`s that are not in `states$abbreviation
 
 ```{r}
-
- 
+dennys %>%
+    filter(!(state %in% states$abbreviation))
 ```
 
 4.  Add a country variable to the Denny's dataset and set all observations equal to `"United States"`. Remember, you can use the `mutate` function for adding a variable. Make sure to save the result of this as `dn` again so that the stored data frame contains the new variable going forward.
 
 ```{r}
-
+dn <- dennys %>%
+    mutate(country = "United States")
 ```
 
 
