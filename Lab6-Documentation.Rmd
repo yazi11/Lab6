@@ -127,7 +127,8 @@ dn <- dennys %>%
 Add the code below for La Quinta's dataset
 
 ```{r}
-
+lq <- laquinta %>%
+    mutate(country = "United States")
 ```
 
 
