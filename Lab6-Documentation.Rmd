@@ -135,7 +135,9 @@ lq <- laquinta %>%
 Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
 4.  Which states have the most and fewest Denny's locations? What about La Quinta? Is this surprising? Why or why not?
-
+answer:Denny's the most = CA and the Fewset = DE
+ La Quinta the most = TX and the Fewest = AG
+ 
 5. Next, let's calculate which states have the most Denny's and La Quinta's locations *per thousand square miles*.
 This requires *joinining* information from the frequency tables you created in Exercise 3 with information from the `states` data frame.
 
